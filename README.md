@@ -1,13 +1,13 @@
 ## malaria-resistance-mapping
 #Insecticide resistance mapping using MalariaGEN Ag3 data with climate correlation analysis
 
-##Step 1
+##Step 1:Installing malaraiagen_data
 
 !pip install malariagen_data -q
 
 
- #  Step 2
- ### ============================================================
+ ##Step 2: Importing the data
+ 
  import malariagen_data
  
 ag3 = malariagen_data.Ag3()
@@ -15,9 +15,9 @@ ag3 = malariagen_data.Ag3()
 print("Connected ✓")
 print(f"Version: {malariagen_data.__version__}")
 
-# ============================================================
-# STEP 3: Load Sample Metadata
-# ============================================================
+
+##STEP 3: Load Sample Metadata
+
 import pandas as pd
 
 # Load all sample metadata from MalariaGEN Ag3
@@ -30,9 +30,9 @@ print(f"\nYears: {samples['year'].min()} - {samples['year'].max()}")
 print(f"\nFirst 5 rows:")
 samples.head()
 
-# ============================================================
+
 # STEP 4: Clean Data + Load kdr Resistance Mutations
-# ============================================================
+
 import numpy as np
 
 # --- Clean sample metadata ---
@@ -54,9 +54,9 @@ print(df['taxon'].value_counts())
 print(f"\nSamples per country:")
 print(df['country'].value_counts().to_string())
 
-# ============================================================
-# STEP 5: Load kdr Resistance Allele Frequencies
-# ============================================================
+
+##STEP 5: Load kdr Resistance Allele Frequencies
+
 
 # Load Ag3 cohort diversity - this gives us resistance allele data
 # kdr mutations: Vgsc L995F (kdr-west) and L995S (kdr-east)
@@ -79,9 +79,9 @@ print("kdr data loaded ✓")
 print(f"Shape: {snp_data.shape}")
 snp_data.head()
 
-# ============================================================
-# STEP 6: Extract kdr Mutations + Build Mapping Dataset
-# ============================================================
+
+##STEP 6: Extract kdr Mutations + Build Mapping Dataset
+
 
 # Reset index to work with the data easily
 snp_df = snp_data.reset_index()
@@ -100,9 +100,9 @@ freq_cols = [c for c in snp_df.columns if c.startswith('frq_')]
 print(f"\nNumber of cohorts: {len(freq_cols)}")
 print(f"Example cohorts: {freq_cols[:5]}")
 
-# ============================================================
-# STEP 7: Reshape into Mappable Format
-# ============================================================
+
+##STEP 7: Reshape into Mappable Format
+
 
 def extract_kdr_by_cohort(kdr_row, mutation_name):
     """Extract frequency per cohort and parse country/year from cohort name"""
